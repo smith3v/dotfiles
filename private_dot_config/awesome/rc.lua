@@ -16,6 +16,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -241,17 +242,18 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
+                --mylauncher,
+                s.mytaglist,
+                s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            --mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
+                --mykeyboardlayout,
+                wibox.widget.systray(),
+                ram_widget(),
+                mytextclock,
+                s.mylayoutbox,
         },
     }
 end)

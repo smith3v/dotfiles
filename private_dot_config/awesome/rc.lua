@@ -297,6 +297,16 @@ globalkeys = gears.table.join(
               awful.util.spawn("xautolock -locknow")
           end),
 
+    awful.key({ modkey, "Shift" }, "l",
+          function ()
+              awful.util.spawn("systemctl suspend")
+          end),
+
+    awful.key({ modkey, "Control", "Shift" }, "l",
+          function ()
+              awful.util.spawn("systemctl hibernate")
+          end),
+
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -369,9 +379,9 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    --rofi
+    awful.key({modkey}, "r", function() awful.spawn.with_shell("rofi -show drun &>> /tmp/rofi.log") end,
+              {description = "run launcher", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()

@@ -17,6 +17,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -244,7 +246,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
                 --mylauncher,
                 s.mytaglist,
-                s.mypromptbox,
+                --s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
@@ -252,6 +254,9 @@ awful.screen.connect_for_each_screen(function(s)
                 --mykeyboardlayout,
                 wibox.widget.systray(),
                 ram_widget(),
+                volume_widget{
+                    widget_type = 'horizontal_bar'
+                },
                 mytextclock,
                 s.mylayoutbox,
         },
@@ -398,7 +403,11 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+    awful.key({ }, "XF86AudioRaiseVolume", function() volume_widget:inc(5) end),
+    awful.key({ }, "XF86AudioLowerVolume", function() volume_widget:dec(5) end),
+    awful.key({ }, "XF86AudioMute", function() volume_widget:toggle() end)
 )
 
 clientkeys = gears.table.join(

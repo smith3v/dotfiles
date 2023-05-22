@@ -290,22 +290,25 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    -- awful.key({ modkey, "Control" }, "l",
-    awful.key({ modkey, }, "l",
+    -- awful.key({ modkey, "Control" }, "z",
+    awful.key({ modkey, "Control"}, "z",
           function ()
               awful.util.spawn("sync")
               awful.util.spawn("xautolock -locknow")
-          end),
+          end,
+          {description = "lock screen", group = "power"}),
 
-    awful.key({ modkey, "Shift" }, "l",
+    awful.key({ modkey, "Shift" }, "z",
           function ()
               awful.util.spawn("systemctl suspend")
-          end),
+          end,
+          {description = "suspend laptop", group = "power"}),
 
-    awful.key({ modkey, "Control", "Shift" }, "l",
+    awful.key({ modkey, "Control", "Shift" }, "z",
           function ()
               awful.util.spawn("systemctl hibernate")
-          end),
+          end,
+          {description = "hibernate laptop", group = "power"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -634,6 +637,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- Autostart 
+awful.spawn.with_shell("lxpolkit")
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
 awful.spawn.with_shell("nm-applet")

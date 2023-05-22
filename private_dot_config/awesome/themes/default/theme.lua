@@ -11,7 +11,8 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 9"
+--theme.font          = "sans 9"
+theme.font          = "Fira Code 9"
 
 theme.bg_normal     = "#222222CC"
 theme.bg_focus      = "#535d6cCC"
@@ -25,10 +26,15 @@ theme.fg_urgent     = "#ffffffCC"
 theme.fg_minimize   = "#ffffffCC"
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(3)
+theme.border_width  = dpi(2)
 theme.border_normal = "#000000CC"
 theme.border_focus  = "#535d6cCC"
 theme.border_marked = "#91231cCC"
+
+theme.hotkeys_bg    = "#222222"
+theme.hotkeys_fg    = "#aaaaaa"
+theme.hotkeys_font  = "Fira Code 10"
+theme.hotkeys_description_font  = "Fira Code 10"
 
 -- There are other variable sets
 -- overriding the default one when

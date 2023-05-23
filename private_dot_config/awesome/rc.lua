@@ -660,8 +660,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart 
 awful.spawn.with_shell("lxpolkit")
---awful.spawn.with_shell("compton")
---awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("picom")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("blueman-applet")
 awful.spawn.with_shell("xfce4-power-manager")

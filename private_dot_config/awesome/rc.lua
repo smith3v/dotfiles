@@ -15,9 +15,9 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
-local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
-local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+-- local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+-- local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+-- local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 
 
 -- Enable hotkeys help widget for VIM and other apps
@@ -79,7 +79,7 @@ awful.layout.layouts = {
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
@@ -136,19 +136,19 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
-local cw = calendar_widget({
-    theme = 'nord',
-    placement = 'top_right',
-    radius = 8,
--- with customized next/previous (see table above)
-    previous_month_button = 1,
-    next_month_button = 3,
-})
+-- local cw = calendar_widget({
+--     theme = 'nord',
+--     placement = 'top_right',
+--     radius = 8,
+-- -- with customized next/previous (see table above)
+--     previous_month_button = 1,
+--     next_month_button = 3,
+-- })
 
-mytextclock:connect_signal("button::press",
-    function(_, _, _, button)
-        if button == 1 then cw.toggle() end
-    end)
+-- mytextclock:connect_signal("button::press",
+--     function(_, _, _, button)
+--         if button == 1 then cw.toggle() end
+--     end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -207,7 +207,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    -- set_wallpaper(s)
+    set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -253,10 +253,10 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
                 --mykeyboardlayout,
                 wibox.widget.systray(),
-                ram_widget(),
-                volume_widget{
-                    widget_type = 'horizontal_bar'
-                },
+                --ram_widget(),
+                --volume_widget{
+                ---    widget_type = 'horizontal_bar'
+                ---},
                 mytextclock,
                 s.mylayoutbox,
         },
@@ -314,6 +314,19 @@ globalkeys = gears.table.join(
               awful.util.spawn("systemctl hibernate")
           end,
           {description = "hibernate laptop", group = "power"}),
+
+
+    -- Screenshot PrtScrn
+    awful.key({}, "Print",
+          function () 
+              awful.util.spawn_with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png") end,
+          {description = "Take a screenshot", group = "hotkeys"}),
+
+    -- Screenshot Alt PrtScrn
+    -- awful.key({ altkey }, "Print",
+    --       function () 
+    --           awful.util.spawn_with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png && gimp $FILE &") end,
+    --       {description = "Edit screenshot", group = "hotkeys"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -647,8 +660,8 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart 
 awful.spawn.with_shell("lxpolkit")
-awful.spawn.with_shell("compton")
-awful.spawn.with_shell("nitrogen --restore")
+--awful.spawn.with_shell("compton")
+--awful.spawn.with_shell("nitrogen --restore")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("blueman-applet")
 awful.spawn.with_shell("xfce4-power-manager")

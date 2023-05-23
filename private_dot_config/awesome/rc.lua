@@ -319,14 +319,14 @@ globalkeys = gears.table.join(
     -- Screenshot PrtScrn
     awful.key({}, "Print",
           function () 
-              awful.util.spawn_with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png") end,
+              awful.spawn.with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png") end,
           {description = "Take a screenshot", group = "hotkeys"}),
 
     -- Screenshot Alt PrtScrn
-    -- awful.key({ altkey }, "Print",
-    --       function () 
-    --           awful.util.spawn_with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png && gimp $FILE &") end,
-    --       {description = "Edit screenshot", group = "hotkeys"}),
+    awful.key({ modkey }, "Print",
+          function () 
+              awful.spawn.with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png && flatpak run com.github.maoschanz.drawing -c") end,
+          {description = "Edit screenshot", group = "hotkeys"}),
 
     awful.key({ modkey,           }, "j",
         function ()

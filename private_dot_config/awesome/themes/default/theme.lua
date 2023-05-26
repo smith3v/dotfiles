@@ -64,6 +64,11 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
 
+theme.notification_font   = "Fira Code 14"
+theme.notification_width  = dpi(700)
+theme.notification_bg     = "#ffffe6DD"
+theme.notification_fg     = "#0000cc"
+
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]

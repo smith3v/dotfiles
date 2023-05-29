@@ -1,0 +1,9 @@
+[Unit]
+Description=Xrandr automation
+
+[Service]
+Type=simple
+ExecStart=mons -a -x /home/neuron/.config/awesome/mons.sh
+
+[Install]
+WantedBy=default.target

@@ -309,24 +309,36 @@ globalkeys = gears.table.join(
           end,
           {description = "suspend laptop", group = "power"}),
 
-    awful.key({ modkey, "Control", "Shift" }, "z",
-          function ()
-              awful.util.spawn("systemctl hibernate")
-          end,
-          {description = "hibernate laptop", group = "power"}),
+    -- awful.key({ modkey, "Control", "Shift" }, "z",
+    --       function ()
+    --           awful.util.spawn("systemctl hibernate")
+    --       end,
+    --       {description = "hibernate laptop", group = "power"}),
 
 
     -- Screenshot PrtScrn
     awful.key({}, "Print",
           function () 
               awful.spawn.with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png") end,
-          {description = "Take a screenshot", group = "hotkeys"}),
+          {description = "Take a screenshot", group = "Hotkeys"}),
 
     -- Screenshot Alt PrtScrn
     awful.key({ modkey }, "Print",
           function () 
               awful.spawn.with_shell("set FILE " .. os.getenv("HOME") .. "/Pictures/screenshots/screenshot_$(date +%Y_%m_%d_%H-%M-%S).png && maim -s --hidecursor $FILE && xclip -selection clipboard $FILE -t image/png && flatpak run com.github.maoschanz.drawing -c") end,
-          {description = "Edit screenshot", group = "hotkeys"}),
+          {description = "Edit screenshot", group = "Hotkeys"}),
+
+    -- Switch to laptop screen
+    awful.key({ modkey }, "[",
+          function () 
+              awful.spawn.with_shell("mons -o") end,
+          {description = "Switch to laptop screen", group = "Hotkeys"}),
+
+    -- Switch to external screen
+    awful.key({ modkey }, "]",
+          function () 
+              awful.spawn.with_shell("mons -s") end,
+          {description = "Switch to external screen", group = "Hotkeys"}),
 
     awful.key({ modkey,           }, "j",
         function ()

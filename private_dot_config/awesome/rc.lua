@@ -340,6 +340,12 @@ globalkeys = gears.table.join(
               awful.spawn.with_shell("mons -s") end,
           {description = "Switch to external screen", group = "Hotkeys"}),
 
+    -- Enable external screen on top of laptop
+    awful.key({ modkey }, "\\",
+          function () 
+              awful.spawn.with_shell("mons -e top") end,
+          {description = "Switch to external screen", group = "Hotkeys"}),
+
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)

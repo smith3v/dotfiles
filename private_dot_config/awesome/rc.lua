@@ -15,6 +15,8 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+local lain = require("lain")
+
 -- local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 -- local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 -- local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
@@ -75,6 +77,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.spiral.dwindle,
+    lain.layout.centerwork,
+    awful.layout.suit.max,
+    lain.layout.termfair,
+    lain.layout.termfair.center,
+    lain.layout.cascade,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
@@ -83,7 +90,6 @@ awful.layout.layouts = {
     -- awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
-    awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
@@ -288,9 +294,10 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey,           }, "Left",   function () lain.util.tag_view_nonempty(-1) end,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,           }, "Right",  function () lain.util.tag_view_nonempty(1) end,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),

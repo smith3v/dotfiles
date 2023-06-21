@@ -255,6 +255,10 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+local fugitive_gitlab_domains = {}
+fugitive_gitlab_domains['git@gitlab.booking.com'] = 'https://gitlab.booking.com/'
+vim.g.fugitive_gitlab_domains = fugitive_gitlab_domains
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -295,7 +299,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- Enable telescope file browser
 pcall(require('telescope').load_extension, 'file_browser')
 
--- Enable telescope file browser
+-- Enable telescope recent files extension
 pcall(require('telescope').load_extension, 'recent_files')
 
 -- See `:help telescope.builtin`
@@ -315,8 +319,10 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- Personal preferences
 vim.keymap.set('n', '<leader>fb', ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = '[F]ile [B]rowser', noremap = true })
-vim.keymap.set("n", "<leader>rf", [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { desc = '[R]ecent [F]iles', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>rf', [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { desc = '[R]ecent [F]iles', noremap = true, silent = true})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
